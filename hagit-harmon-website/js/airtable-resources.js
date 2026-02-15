@@ -29,7 +29,6 @@ async function loadResourcesEnglish() {
     container.innerHTML = '';
 
     if (resources.length === 0) {
-        container.innerHTML = '<p style="text-align: center; color: #380001;">No resources available at this time.</p>';
         return;
     }
 
@@ -59,7 +58,6 @@ async function loadResourcesHebrew() {
     container.innerHTML = '';
 
     if (resources.length === 0) {
-        container.innerHTML = '<p style="text-align: center; color: #380001;">אין משאבים זמינים כרגע.</p>';
         return;
     }
 
