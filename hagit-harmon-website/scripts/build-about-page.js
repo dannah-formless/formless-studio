@@ -12,7 +12,7 @@ const https = require('https');
 // Configuration from environment variables
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
-const TABLE_NAME = 'about_content';
+const TABLE_NAME = 'about';
 
 // File paths
 const ABOUT_EN_PATH = path.join(__dirname, '..', 'about.html');
