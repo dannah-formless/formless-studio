@@ -91,9 +91,10 @@ function buildContentMap(records) {
   const contentMap = {};
 
   records.forEach(record => {
-    const sectionKey = record.fields['section_key'];
-    const copyEng = record.fields['copy (eng)'] || '';
-    const copyHeb = record.fields['copy (heb)'] || '';
+    // Support both 'Section' and 'section_key' field names
+    const sectionKey = record.fields['Section'] || record.fields['section_key'];
+    const copyEng = record.fields['Copy (eng)'] || record.fields['copy (eng)'] || '';
+    const copyHeb = record.fields['Copy (heb)'] || record.fields['copy (heb)'] || '';
 
     if (sectionKey) {
       contentMap[sectionKey] = {
