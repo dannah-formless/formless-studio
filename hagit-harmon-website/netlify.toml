@@ -1,0 +1,23 @@
+[build]
+  # Build command - fetches About page content from Airtable and updates HTML files
+  command = "npm run build"
+
+  # Publish directory - the root directory contains all the static files
+  publish = "."
+
+  # Functions directory (for existing Airtable events integration)
+  functions = "netlify/functions"
+
+[build.environment]
+  # Node.js version
+  NODE_VERSION = "18"
+
+# Context-specific build settings
+[context.production]
+  command = "npm run build"
+
+[context.deploy-preview]
+  command = "npm run build"
+
+[context.branch-deploy]
+  command = "npm run build"

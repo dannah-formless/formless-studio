@@ -1,0 +1,12 @@
+{
+  "name": "hagit-harmon-website",
+  "version": "1.0.0",
+  "description": "Hagit Harmon - IFS Therapist & Meditation Teacher website",
+  "private": true,
+  "scripts": {
+    "build": "node scripts/build-about-page.js"
+  },
+  "keywords": [],
+  "author": "Dannah Cahn",
+  "license": "UNLICENSED"
+}
