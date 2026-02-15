@@ -1088,17 +1088,17 @@
     <!-- Hero Section -->
     <section class="page-hero" aria-labelledby="hero-heading">
         <div class="hero-content">
-            <h2 id="hero-heading">MEDITATION</h2>
-            <p class="subtitle">cultivating presence,<br>awareness & inner peace</p>
+            <h2 id="hero-heading" data-section-key="hero_title">MEDITATION</h2>
+            <p class="subtitle" data-section-key="hero_subtitle">cultivating presence,<br>awareness & inner peace</p>
         </div>
     </section>
 
     <!-- Content Section -->
     <section class="content-section" aria-labelledby="practice-heading">
         <div>
-            <h3 id="practice-heading">The Practice</h3>
+            <h3 id="practice-heading" data-section-key="practice_heading">The Practice</h3>
         </div>
-        <div class="content-text">
+        <div class="content-text" data-section-key="practice_content">
             <p>
                 The practice of Zen meditation asks us to return again and again to the present moment, which is mindfulness, so we can meet life as it is.
             </p>
@@ -1117,9 +1117,9 @@
     <!-- Lineage Section -->
     <section class="content-section" aria-labelledby="lineage-heading">
         <div>
-            <h3 id="lineage-heading">The Lineage</h3>
+            <h3 id="lineage-heading" data-section-key="lineage_heading">The Lineage</h3>
         </div>
-        <div class="content-text">
+        <div class="content-text" data-section-key="lineage_content">
             <p>
                 Zen Buddhism focuses on directly experiencing reality through meditation and mindfulness. I follow the lineage of Thich Nhat Hanh who was my teacher for many years. He emphasized being in the present moment, cultivating compassion for the self and others, inviting a sense of joy and wonder, and living the understanding of interbeing, interconnectedness. His lineage carried Zen out of the monastery and into the world where meditation becomes a way of living, not a retreat from life.
             </p>
@@ -1146,8 +1146,8 @@
     <!-- Newsletter Section -->
     <section class="newsletter-section" aria-labelledby="newsletter-heading">
         <div class="newsletter-container">
-            <h2 id="newsletter-heading">stay connected</h2>
-            <p>Leave your email below to receive updates on future offerings, including mindfulness days, retreats, and meditation courses (both in-person and online).</p>
+            <h2 id="newsletter-heading" data-section-key="newsletter_heading">stay connected</h2>
+            <p data-section-key="newsletter_description">Leave your email below to receive updates on future offerings, including mindfulness days, retreats, and meditation courses (both in-person and online).</p>
             <form class="newsletter-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field" aria-label="Newsletter subscription form">
                 <input type="hidden" name="form-name" value="newsletter" />
                 <input type="hidden" name="bot-field" />
@@ -1195,27 +1195,28 @@
     <div class="contact-modal" id="contact-modal">
         <div class="contact-modal-content">
             <button class="contact-modal-close" id="modal-close">&times;</button>
-            <h2>get in touch</h2>
+            <h2 data-section-key="contact_heading">get in touch</h2>
+            <p data-section-key="contact_subtitle" style="font-size: 14px; margin-bottom: 20px; opacity: 0.8;">Please reach out to schedule a therapy session or register for a meditation event. I personally read and respond to every message.</p>
             <form class="contact-form" name="contact-modal" method="POST" action="/success.html" data-netlify="true" netlify-honeypot="bot-field">
                 <input type="hidden" name="form-name" value="contact-modal" />
                 <input type="hidden" name="bot-field" />
                 <div class="form-group">
-                    <label for="modal-name">Name</label>
+                    <label for="modal-name" data-section-key="contact_label_name">Name</label>
                     <input type="text" id="modal-name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="modal-email">Email</label>
+                    <label for="modal-email" data-section-key="contact_label_email">Email</label>
                     <input type="email" id="modal-email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="modal-phone">Phone</label>
+                    <label for="modal-phone" data-section-key="contact_label_phone">Phone</label>
                     <input type="tel" id="modal-phone" name="phone">
                 </div>
                 <div class="form-group">
-                    <label for="modal-message">Message</label>
+                    <label for="modal-message" data-section-key="contact_label_message">Message</label>
                     <textarea id="modal-message" name="message" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">send message</button>
+                <button type="submit" class="submit-btn" data-section-key="contact_button_submit">send message</button>
             </form>
         </div>
     </div>

@@ -1086,17 +1086,17 @@
     <!-- Hero Section -->
     <section class="page-hero">
         <div class="hero-content">
-            <h2>מדיטציה</h2>
-            <p class="subtitle" style="font-family: 'Hofesh', serif; font-size: 21px; line-height: 26px; letter-spacing: 0.1em;">טיפוח נוכחות,<br>מודעות ושלווה פנימית</p>
+            <h2 data-section-key="hero_title">מדיטציה</h2>
+            <p class="subtitle" style="font-family: 'Hofesh', serif; font-size: 21px; line-height: 26px; letter-spacing: 0.1em;" data-section-key="hero_subtitle">טיפוח נוכחות,<br>מודעות ושלווה פנימית</p>
         </div>
     </section>
 
     <!-- Content Section -->
     <section class="content-section">
         <div>
-            <h3>התרגול</h3>
+            <h3 data-section-key="practice_heading">התרגול</h3>
         </div>
-        <div class="content-text">
+        <div class="content-text" data-section-key="practice_content">
             <p>
                 התרגול של מדיטציה מבקש מאיתנו לחזור שוב ושוב לרגע ההווה, כלומר לתרגל תשומת-לב. כך אנחנו יכולים לפגוש את החיים כמות שהם.
             </p>
@@ -1115,9 +1115,9 @@
     <!-- Lineage Section -->
     <section class="content-section">
         <div>
-            <h3>מסורת התרגול</h3>
+            <h3 data-section-key="lineage_heading">מסורת התרגול</h3>
         </div>
-        <div class="content-text">
+        <div class="content-text" data-section-key="lineage_content">
             <p>
                 בודהיזם הזן מתמקד בחוויה ישירה של המציאות באמצעות מדיטציה ותשומת-לב. אני מתרגלת במסורת של מורה הזן תיך נאת האן שהיה המורה שלי שנים רבות. הוא שם דגש על נוכחות בהווה, על טיפוח חמלה לעצמנו ולאחרים, על טיפוח שמחה והשתאות, ועל ההבנה של הקיום ההדדי. המסורת שלו הוציאה את התרגול מהמנזר אל העולם, שם מדיטציה הופכת לדרך חיים, ולא לפרישה מהחיים.
             </p>
@@ -1144,8 +1144,8 @@
     <!-- Newsletter Section -->
     <section class="newsletter-section">
         <div class="newsletter-container">
-            <h2>שימרו על קשר</h2>
-            <p>אל תהססו לפנות אלי בקשר לטיפול או בקשר לתרגול מדיטציה. מבטיחה לקרוא ולענות לכל פנייה.</p>
+            <h2 data-section-key="newsletter_heading">שימרו על קשר</h2>
+            <p data-section-key="newsletter_description">אל תהססו לפנות אלי בקשר לטיפול או בקשר לתרגול מדיטציה. מבטיחה לקרוא ולענות לכל פנייה.</p>
             <form class="newsletter-form" name="newsletter" method="POST" data-netlify="true" netlify-honeypot="bot-field">
                 <input type="hidden" name="form-name" value="newsletter" />
                 <input type="hidden" name="bot-field" />
@@ -1193,27 +1193,28 @@
     <div class="contact-modal" id="contact-modal">
         <div class="contact-modal-content">
             <button class="contact-modal-close" id="modal-close">&times;</button>
-            <h2>יצירת קשר</h2>
+            <h2 data-section-key="contact_heading">יצירת קשר</h2>
+            <p data-section-key="contact_subtitle" style="font-size: 16px; margin-bottom: 20px; opacity: 0.8;">אל תהססו לפנות אלי בקשר לטיפול או בקשר לתרגול מדיטציה. מבטיחה לקרוא ולענות לכל פנייה.</p>
             <form class="contact-form" name="contact-modal" method="POST" action="/success-he.html" data-netlify="true" netlify-honeypot="bot-field">
                 <input type="hidden" name="form-name" value="contact-modal" />
                 <input type="hidden" name="bot-field" />
                 <div class="form-group">
-                    <label for="modal-name">שם</label>
+                    <label for="modal-name" data-section-key="contact_label_name">שם</label>
                     <input type="text" id="modal-name" name="name" required>
                 </div>
                 <div class="form-group">
-                    <label for="modal-email">אימייל</label>
+                    <label for="modal-email" data-section-key="contact_label_email">אימייל</label>
                     <input type="email" id="modal-email" name="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="modal-phone">טלפון</label>
+                    <label for="modal-phone" data-section-key="contact_label_phone">טלפון</label>
                     <input type="tel" id="modal-phone" name="phone">
                 </div>
                 <div class="form-group">
-                    <label for="modal-message">הודעה</label>
+                    <label for="modal-message" data-section-key="contact_label_message">הודעה</label>
                     <textarea id="modal-message" name="message" required></textarea>
                 </div>
-                <button type="submit" class="submit-btn">שלחו הודעה</button>
+                <button type="submit" class="submit-btn" data-section-key="contact_button_submit">שלחו הודעה</button>
             </form>
         </div>
     </div>

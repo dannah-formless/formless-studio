@@ -8,6 +8,7 @@
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
+const glob = require('glob');
 
 // Configuration from environment variables
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
@@ -30,6 +31,29 @@ const PAGES = [
       en: path.join(__dirname, '..', 'therapy.html'),
       he: path.join(__dirname, '..', 'therapy-he.html')
     }
+  },
+  {
+    name: 'Meditation',
+    table: 'meditation',
+    files: {
+      en: path.join(__dirname, '..', 'zen-meditation.html'),
+      he: path.join(__dirname, '..', 'zen-meditation-he.html')
+    }
+  }
+];
+
+// Global sections that appear across multiple pages
+const GLOBAL_SECTIONS = [
+  {
+    name: 'Newsletter',
+    table: 'newsletter',
+    // Will update all HTML files in the root directory
+    pattern: '*.html'
+  },
+  {
+    name: 'Contact',
+    table: 'contact',
+    pattern: '*.html'
   }
 ];
 
@@ -180,6 +204,64 @@ async function buildPage(pageConfig) {
 }
 
 /**
+ * Build a global section that appears across multiple pages
+ */
+async function buildGlobalSection(sectionConfig) {
+  console.log(`\n🌍 Building global ${sectionConfig.name} section...`);
+
+  try {
+    // Fetch content from Airtable
+    console.log(`📡 Fetching from '${sectionConfig.table}' table...`);
+    const records = await fetchAirtableContent(sectionConfig.table);
+
+    if (!records || records.length === 0) {
+      console.log(`⚠️  No data found for ${sectionConfig.name}. Using static content.`);
+      return false;
+    }
+
+    console.log(`✅ Fetched ${records.length} content sections`);
+
+    // Build content map
+    const contentMap = buildContentMap(records);
+    console.log(`📝 Processing ${Object.keys(contentMap).length} sections\n`);
+
+    // Find all HTML files matching the pattern
+    const files = glob.sync(path.join(__dirname, '..', sectionConfig.pattern));
+
+    if (files.length === 0) {
+      console.log(`⚠️  No HTML files found matching pattern: ${sectionConfig.pattern}`);
+      return false;
+    }
+
+    console.log(`Found ${files.length} HTML files to update\n`);
+
+    let updatedCount = 0;
+
+    // Update each file
+    files.forEach(filePath => {
+      const fileName = path.basename(filePath);
+
+      // Determine language from filename
+      const isHebrew = fileName.includes('-he.html');
+      const language = isHebrew ? 'heb' : 'eng';
+
+      console.log(`Updating ${fileName} (${language}):`);
+      const wasUpdated = updateHTMLFile(filePath, contentMap, language);
+      if (wasUpdated) {
+        updatedCount++;
+      }
+    });
+
+    console.log(`\n✅ Updated ${updatedCount} file(s) with ${sectionConfig.name} content`);
+    return updatedCount > 0;
+
+  } catch (error) {
+    console.error(`\n❌ Error building ${sectionConfig.name}:`, error.message);
+    return false;
+  }
+}
+
+/**
  * Main build function
  */
 async function buildAllPages() {
@@ -194,6 +276,8 @@ async function buildAllPages() {
 
   let successCount = 0;
   let failCount = 0;
+  let globalSuccessCount = 0;
+  let globalFailCount = 0;
 
   // Build each page
   for (const pageConfig of PAGES) {
@@ -205,12 +289,28 @@ async function buildAllPages() {
     }
   }
 
+  // Build global sections
+  for (const sectionConfig of GLOBAL_SECTIONS) {
+    const success = await buildGlobalSection(sectionConfig);
+    if (success) {
+      globalSuccessCount++;
+    } else {
+      globalFailCount++;
+    }
+  }
+
   // Summary
   console.log('\n' + '='.repeat(50));
   console.log(`✅ Build complete!`);
   console.log(`   ${successCount} page(s) updated from Airtable`);
   if (failCount > 0) {
     console.log(`   ${failCount} page(s) using static content (fallback)`);
+  }
+  if (globalSuccessCount > 0) {
+    console.log(`   ${globalSuccessCount} global section(s) updated across all pages`);
+  }
+  if (globalFailCount > 0) {
+    console.log(`   ${globalFailCount} global section(s) using static content (fallback)`);
   }
   console.log('='.repeat(50) + '\n');
 }
