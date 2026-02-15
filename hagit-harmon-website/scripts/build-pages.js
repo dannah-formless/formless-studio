@@ -144,14 +144,15 @@ function updateHTMLFile(filePath, contentMap, language) {
   let updated = false;
 
   // Find all elements with data-section-key and replace their content
-  const regex = /(<[^>]+data-section-key=["']([^"']+)["'][^>]*>)([\s\S]*?)(<\/[^>]+>)/g;
+  // This regex extracts: tag name, full opening tag, section key, content, closing tag
+  const regex = /<(\w+)([^>]*data-section-key=["']([^"']+)["'][^>]*)>([\s\S]*?)<\/\1>/g;
 
-  html = html.replace(regex, (match, openTag, sectionKey, currentContent, closeTag) => {
+  html = html.replace(regex, (match, tagName, attributes, sectionKey, currentContent) => {
     if (contentMap[sectionKey] && contentMap[sectionKey][language]) {
       const newContent = contentMap[sectionKey][language];
       updated = true;
       console.log(`  ✏️  Updated ${sectionKey} (${language})`);
-      return openTag + newContent + closeTag;
+      return `<${tagName}${attributes}>${newContent}</${tagName}>`;
     }
     return match;
   });
