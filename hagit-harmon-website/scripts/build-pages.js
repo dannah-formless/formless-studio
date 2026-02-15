@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * Build script to fetch About page content from Airtable and update HTML files
+ * Build script to fetch page content from Airtable and update HTML files
  * Runs at build time only - generates static HTML files
  */
 
@@ -12,33 +12,45 @@ const https = require('https');
 // Configuration from environment variables
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
-const TABLE_NAME = 'about';
 
-// File paths
-const ABOUT_EN_PATH = path.join(__dirname, '..', 'about.html');
-const ABOUT_HE_PATH = path.join(__dirname, '..', 'about-he.html');
+// Pages configuration - add new pages here
+const PAGES = [
+  {
+    name: 'About',
+    table: 'about',
+    files: {
+      en: path.join(__dirname, '..', 'about.html'),
+      he: path.join(__dirname, '..', 'about-he.html')
+    }
+  },
+  {
+    name: 'Therapy',
+    table: 'therapy',
+    files: {
+      en: path.join(__dirname, '..', 'therapy.html'),
+      he: path.join(__dirname, '..', 'therapy-he.html')
+    }
+  }
+];
 
 /**
- * Fetch content from Airtable
+ * Fetch content from Airtable table
  */
-async function fetchAirtableContent() {
+async function fetchAirtableContent(tableName) {
   return new Promise((resolve, reject) => {
     if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
-      console.warn('⚠️  Airtable credentials not found. Using fallback static content.');
       resolve(null);
       return;
     }
 
     const options = {
       hostname: 'api.airtable.com',
-      path: `/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(TABLE_NAME)}`,
+      path: `/v0/${AIRTABLE_BASE_ID}/${encodeURIComponent(tableName)}`,
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${AIRTABLE_API_KEY}`
       }
     };
-
-    console.log('📡 Fetching About page content from Airtable...');
 
     const req = https.request(options, (res) => {
       let data = '';
@@ -51,21 +63,20 @@ async function fetchAirtableContent() {
         if (res.statusCode === 200) {
           try {
             const json = JSON.parse(data);
-            console.log(`✅ Fetched ${json.records.length} content sections from Airtable`);
             resolve(json.records);
           } catch (error) {
-            console.error('❌ Error parsing Airtable response:', error.message);
+            console.error(`❌ Error parsing ${tableName} response:`, error.message);
             resolve(null);
           }
         } else {
-          console.error(`❌ Airtable API error (${res.statusCode}):`, data);
+          console.error(`❌ Airtable API error for ${tableName} (${res.statusCode}):`, data);
           resolve(null);
         }
       });
     });
 
     req.on('error', (error) => {
-      console.error('❌ Network error fetching from Airtable:', error.message);
+      console.error(`❌ Network error fetching ${tableName}:`, error.message);
       resolve(null);
     });
 
@@ -131,40 +142,77 @@ function updateHTMLFile(filePath, contentMap, language) {
 }
 
 /**
- * Main build function
+ * Build a single page
  */
-async function buildAboutPages() {
-  console.log('\n🔨 Building About pages...\n');
+async function buildPage(pageConfig) {
+  console.log(`\n📄 Building ${pageConfig.name} page...`);
 
   try {
     // Fetch content from Airtable
-    const records = await fetchAirtableContent();
+    console.log(`📡 Fetching from '${pageConfig.table}' table...`);
+    const records = await fetchAirtableContent(pageConfig.table);
 
     if (!records || records.length === 0) {
-      console.log('⚠️  Using existing static content (no Airtable data available)');
-      console.log('✅ Build complete (fallback mode)\n');
-      return;
+      console.log(`⚠️  No data found for ${pageConfig.name}. Using static content.`);
+      return false;
     }
+
+    console.log(`✅ Fetched ${records.length} content sections`);
 
     // Build content map
     const contentMap = buildContentMap(records);
-    console.log(`\n📝 Processing ${Object.keys(contentMap).length} content sections\n`);
+    console.log(`📝 Processing ${Object.keys(contentMap).length} sections\n`);
 
     // Update English page
-    console.log('English page (about.html):');
-    updateHTMLFile(ABOUT_EN_PATH, contentMap, 'eng');
+    console.log(`English (${path.basename(pageConfig.files.en)}):`);
+    updateHTMLFile(pageConfig.files.en, contentMap, 'eng');
 
     // Update Hebrew page
-    console.log('\nHebrew page (about-he.html):');
-    updateHTMLFile(ABOUT_HE_PATH, contentMap, 'heb');
+    console.log(`\nHebrew (${path.basename(pageConfig.files.he)}):`);
+    updateHTMLFile(pageConfig.files.he, contentMap, 'heb');
 
-    console.log('\n✅ About pages build complete!\n');
+    return true;
   } catch (error) {
-    console.error('\n❌ Build error:', error.message);
-    console.log('⚠️  Using existing static content as fallback');
-    console.log('✅ Build complete (fallback mode)\n');
+    console.error(`\n❌ Error building ${pageConfig.name}:`, error.message);
+    return false;
   }
 }
 
+/**
+ * Main build function
+ */
+async function buildAllPages() {
+  console.log('\n🔨 Building pages from Airtable CMS...\n');
+
+  if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
+    console.warn('⚠️  Airtable credentials not found.');
+    console.log('⚠️  Using existing static content for all pages.');
+    console.log('✅ Build complete (fallback mode)\n');
+    return;
+  }
+
+  let successCount = 0;
+  let failCount = 0;
+
+  // Build each page
+  for (const pageConfig of PAGES) {
+    const success = await buildPage(pageConfig);
+    if (success) {
+      successCount++;
+    } else {
+      failCount++;
+    }
+  }
+
+  // Summary
+  console.log('\n' + '='.repeat(50));
+  console.log(`✅ Build complete!`);
+  console.log(`   ${successCount} page(s) updated from Airtable`);
+  if (failCount > 0) {
+    console.log(`   ${failCount} page(s) using static content (fallback)`);
+  }
+  console.log('='.repeat(50) + '\n');
+}
+
 // Run the build
-buildAboutPages();
+buildAllPages();

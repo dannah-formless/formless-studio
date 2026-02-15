@@ -4,7 +4,7 @@
   "description": "Hagit Harmon - IFS Therapist & Meditation Teacher website",
   "private": true,
   "scripts": {
-    "build": "node scripts/build-about-page.js"
+    "build": "node scripts/build-pages.js"
   },
   "keywords": [],
   "author": "Dannah Cahn",
