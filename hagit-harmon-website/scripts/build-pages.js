@@ -17,6 +17,14 @@ const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
 // Pages configuration - add new pages here
 const PAGES = [
   {
+    name: 'Home',
+    table: 'home',
+    files: {
+      en: path.join(__dirname, '..', 'index.html'),
+      he: path.join(__dirname, '..', 'index-he.html')
+    }
+  },
+  {
     name: 'About',
     table: 'about',
     files: {
