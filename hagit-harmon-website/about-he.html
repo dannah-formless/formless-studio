@@ -126,7 +126,6 @@
         /* Navigation */
         nav {
             display: flex;
-            direction: ltr;
             justify-content: space-between;
             align-items: center;
             padding: 20px 80px;
@@ -158,7 +157,6 @@
 
         .nav-links {
             display: flex;
-            direction: ltr;
             gap: 40px;
             align-items: center;
             list-style: none;
@@ -249,7 +247,7 @@
             display: none;
             position: absolute;
             top: calc(100% + 5px);
-            right: 0;
+            left: 0;
             background-color: #F5F0D5;
             border: 1px solid #380001;
             min-width: 180px;
@@ -588,7 +586,7 @@
             .hamburger {
                 display: flex;
                 position: absolute;
-                left: 30px;
+                right: 30px;
             }
 
             .logo {
@@ -604,7 +602,7 @@
             .lang-switch-mobile {
                 display: block;
                 position: absolute;
-                right: 30px;
+                left: 30px;
             }
 
             .nav-links .hebrew-btn {
@@ -632,7 +630,7 @@
                 position: static;
                 box-shadow: none;
                 border: none;
-                padding: 10px 0 10px 20px;
+                padding: 10px 20px 10px 0;
                 background-color: transparent;
                 display: none;
             }
@@ -772,7 +770,10 @@
 
 </p>
             <div class="hero-image">
-                <img src="images/profile.jpg" alt="חגית הרמון">
+                <picture>
+                    <source srcset="images/profile.webp" type="image/webp">
+                    <img src="images/profile.jpg" alt="חגית הרמון">
+                </picture>
             </div>
             <h5 data-section-key="hero_subtitle" style="font-family: 'Hofesh', serif; font-size: 21px; line-height: 26px; letter-spacing: 0.1em;">תלמידה ומורה למדיטציה, מטפלת,
 <br>
