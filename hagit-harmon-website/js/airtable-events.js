@@ -59,17 +59,15 @@ async function fetchAirtableEvents() {
                     : '/images/event.png' // fallback image
             }))
             .sort((a, b) => {
-                // Recurring events go first
-                if (a.isRecurring && !b.isRecurring) return -1;
-                if (!a.isRecurring && b.isRecurring) return 1;
-
-                // If both recurring or both non-recurring, sort by date
-                if (!a.eventDate) return 1;  // Events without dates go last
+                // Events without dates go last
+                if (!a.eventDate && !b.eventDate) return 0;
+                if (!a.eventDate) return 1;
                 if (!b.eventDate) return -1;
 
+                // Sort by date ascending (soonest first)
                 const dateA = new Date(a.eventDate);
                 const dateB = new Date(b.eventDate);
-                return dateA - dateB; // Ascending order (soonest first)
+                return dateA - dateB;
             });
 
         return events;
