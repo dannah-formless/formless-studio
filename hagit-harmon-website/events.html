@@ -317,9 +317,10 @@
         }
 
         .event-card {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-rows: auto auto 1fr;
             gap: 15px;
+            align-items: start;
         }
 
         .event-title {
@@ -330,6 +331,9 @@
             text-transform: lowercase;
             color: #380001;
             margin: 0;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
         }
 
         .event-image {
