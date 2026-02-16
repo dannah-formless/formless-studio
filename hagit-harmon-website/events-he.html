@@ -431,7 +431,7 @@
         }
 
         .event-description.collapsed {
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2;
         }
 
         .event-description.expanded {
@@ -1113,9 +1113,9 @@
             const descriptions = document.querySelectorAll('.event-description');
 
             descriptions.forEach(desc => {
-                // Check if text exceeds 3 lines
+                // Check if text exceeds 2 lines
                 const lineHeight = parseInt(window.getComputedStyle(desc).lineHeight);
-                const maxHeight = lineHeight * 3;
+                const maxHeight = lineHeight * 2;
 
                 if (desc.scrollHeight > maxHeight) {
                     desc.classList.add('collapsed');
