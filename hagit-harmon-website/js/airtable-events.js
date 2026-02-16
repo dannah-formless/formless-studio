@@ -10,6 +10,8 @@ const AIRTABLE_CONFIG = {
 // Fetch events from Airtable
 async function fetchAirtableEvents() {
     try {
+        console.log('📅 Fetching events from Airtable...');
+
         // Build the API URL
         const url = `https://api.airtable.com/v0/${AIRTABLE_CONFIG.baseId}/${encodeURIComponent(AIRTABLE_CONFIG.tableName)}`;
 
@@ -31,6 +33,7 @@ async function fetchAirtableEvents() {
         }
 
         const data = await response.json();
+        console.log(`✅ Fetched ${data.records.length} records from Airtable`);
 
         // Transform Airtable records to our format
         const events = data.records
@@ -57,8 +60,11 @@ async function fetchAirtableEvents() {
                 image: record.fields.Image && record.fields.Image.length > 0
                     ? record.fields.Image[0].url
                     : '/images/event.png' // fallback image
-            }))
-            .sort((a, b) => {
+            }));
+
+        console.log('📋 Events before sorting:', events.map(e => `${e.en.title}: ${e.eventDate}`));
+
+        const sortedEvents = events.sort((a, b) => {
                 // Events without dates go last
                 if (!a.eventDate && !b.eventDate) return 0;
                 if (!a.eventDate) return 1;
@@ -75,7 +81,9 @@ async function fetchAirtableEvents() {
                 return dateA - dateB;
             });
 
-        return events;
+        console.log('✅ Events after sorting:', sortedEvents.map(e => `${e.en.title}: ${e.eventDate}`));
+
+        return sortedEvents;
     } catch (error) {
         console.error('Error fetching events from Airtable:', error);
         return [];
