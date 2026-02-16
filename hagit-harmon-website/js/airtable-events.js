@@ -41,7 +41,7 @@ async function fetchAirtableEvents() {
             .map(record => ({
                 id: record.id,
                 isRecurring: record.fields['Is Recurring'] || false,
-                eventDate: record.fields['date'] || null,
+                eventDate: record.fields['Date'] || null,
                 en: {
                     title: record.fields['Title (eng)'] || '',
                     date: record.fields['Date display (eng)'] || '',
