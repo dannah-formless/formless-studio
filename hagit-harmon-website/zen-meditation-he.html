@@ -430,9 +430,10 @@
         }
 
         .event-card {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-rows: auto auto 1fr;
             gap: 15px;
+            align-items: start;
         }
 
         .event-image {
@@ -481,6 +482,9 @@
             text-transform: none;
             letter-spacing: normal !important;
             margin: 0 !important;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
         }
 
         .event-meta {
@@ -1087,10 +1091,10 @@
     <section class="page-hero">
         <div class="hero-content">
             <h2 data-section-key="hero_title">מדיטציה</h2>
-            <p class="subtitle" style="font-family: 'Hofesh', serif; font-size: 21px; line-height: 26px; letter-spacing: 0.1em;" data-section-key="hero_subtitle">טיפוח נוכחות,
-מודעות
+            <p class="subtitle" style="font-family: 'Hofesh', serif; font-size: 21px; line-height: 26px; letter-spacing: 0.1em;" data-section-key="hero_subtitle">טיפוח נוכחות
+,מודעות
 <br>
- ושלווה פנימית</p>
+ומרחב פנימי</p>
         </div>
     </section>
 

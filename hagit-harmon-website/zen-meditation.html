@@ -427,9 +427,10 @@
         }
 
         .event-card {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-rows: auto auto 1fr;
             gap: 15px;
+            align-items: start;
         }
 
         .event-image {
@@ -480,6 +481,9 @@
             text-transform: uppercase;
             letter-spacing: normal !important;
             margin: 0 !important;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
         }
 
         .event-meta {
@@ -1089,7 +1093,8 @@
     <section class="page-hero" aria-labelledby="hero-heading">
         <div class="hero-content">
             <h2 id="hero-heading" data-section-key="hero_title">MEDITATION</h2>
-            <p class="subtitle" data-section-key="hero_subtitle">cultivating presence,<br>awareness & inner peace</p>
+            <p class="subtitle" data-section-key="hero_subtitle">cultivating presence, awareness<br>and spaciousness
+</p>
         </div>
     </section>
 
