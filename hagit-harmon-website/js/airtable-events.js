@@ -64,10 +64,10 @@ async function fetchAirtableEvents() {
                 if (!a.eventDate) return 1;
                 if (!b.eventDate) return -1;
 
-                // Sort by date ascending (soonest first)
+                // Sort by date descending (soonest first)
                 const dateA = new Date(a.eventDate);
                 const dateB = new Date(b.eventDate);
-                return dateA - dateB;
+                return dateB - dateA;
             });
 
         return events;
