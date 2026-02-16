@@ -44,14 +44,14 @@ async function fetchAirtableEvents() {
                     date: record.fields['Date display (eng)'] || '',
                     location: record.fields['Location (eng)'] || '',
                     language: record.fields['Language (eng)'] || '',
-                    description: record.fields[' Description (eng)'] || ''
+                    description: record.fields['Description (eng)'] || ''
                 },
                 he: {
                     title: record.fields['Title (heb)'] || '',
                     date: record.fields['Date display (heb)'] || '',
                     location: record.fields['Location (heb)'] || '',
                     language: record.fields['Language (heb)'] || '',
-                    description: record.fields[' Description (heb)'] || ''
+                    description: record.fields['Description (heb)'] || ''
                 },
                 registerLink: record.fields['Registration Link'] || '',
                 image: record.fields.Image && record.fields.Image.length > 0
@@ -207,6 +207,11 @@ async function loadUpcomingEventsEnglish() {
 
         grid.appendChild(eventCard);
     });
+
+    // Re-initialize read more functionality if it exists
+    if (typeof initReadMore === 'function') {
+        initReadMore();
+    }
 }
 
 // Load upcoming events for Hebrew meditation page (zen-meditation-he.html)
@@ -260,4 +265,9 @@ async function loadUpcomingEventsHebrew() {
 
         grid.appendChild(eventCard);
     });
+
+    // Re-initialize read more functionality if it exists
+    if (typeof initReadMore === 'function') {
+        initReadMore();
+    }
 }
