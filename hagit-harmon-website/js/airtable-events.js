@@ -57,7 +57,20 @@ async function fetchAirtableEvents() {
                 image: record.fields.Image && record.fields.Image.length > 0
                     ? record.fields.Image[0].url
                     : '/images/event.png' // fallback image
-            }));
+            }))
+            .sort((a, b) => {
+                // Recurring events go first
+                if (a.isRecurring && !b.isRecurring) return -1;
+                if (!a.isRecurring && b.isRecurring) return 1;
+
+                // If both recurring or both non-recurring, sort by date
+                if (!a.eventDate) return 1;  // Events without dates go last
+                if (!b.eventDate) return -1;
+
+                const dateA = new Date(a.eventDate);
+                const dateB = new Date(b.eventDate);
+                return dateA - dateB; // Ascending order (soonest first)
+            });
 
         return events;
     } catch (error) {
