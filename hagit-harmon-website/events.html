@@ -340,10 +340,10 @@
             min-height: 50px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             width: 82.5%;
             margin: 0 auto;
-            text-align: center;
+            text-align: left;
             word-wrap: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
@@ -391,6 +391,7 @@
             letter-spacing: normal !important;
             margin: 0 auto !important;
             width: 82.5%;
+            text-align: left;
         }
 
         .event-meta {
@@ -896,8 +897,31 @@
                 padding: 60px 30px;
             }
 
+            .events-header {
+                display: block;
+                margin-bottom: 30px;
+            }
+
+            .events-header h1 {
+                width: 100%;
+                text-align: left;
+                margin-left: 0;
+                margin-right: 0;
+            }
+
             .events-grid {
                 grid-template-columns: 1fr;
+                gap: 50px;
+            }
+
+            .event-image {
+                width: 90%;
+                padding-top: 120%;
+            }
+
+            .event-title,
+            .event-content {
+                width: 90%;
             }
 
             .newsletter-section {

@@ -493,9 +493,9 @@
             min-height: 50px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
             width: 82.5%;
-            text-align: center;
+            text-align: right;
             word-wrap: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
@@ -1011,8 +1011,18 @@
 
             .events-grid {
                 grid-template-columns: 1fr;
+                gap: 50px;
             }
 
+            .event-image {
+                width: 90%;
+                padding-top: 120%;
+            }
+
+            .event-title,
+            .event-content {
+                width: 90%;
+            }
 
             .newsletter-section {
                 padding: 50px 30px;
