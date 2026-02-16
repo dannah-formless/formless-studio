@@ -67,6 +67,11 @@ async function fetchAirtableEvents() {
                 // Sort by date ascending (soonest first = earliest date first)
                 const dateA = new Date(a.eventDate);
                 const dateB = new Date(b.eventDate);
+
+                // Debug logging
+                console.log(`Comparing: ${a.en.title} (${a.eventDate} = ${dateA.getTime()}) vs ${b.en.title} (${b.eventDate} = ${dateB.getTime()})`);
+                console.log(`Result: ${dateA - dateB}`);
+
                 return dateA - dateB;
             });
 
