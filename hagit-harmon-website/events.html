@@ -265,6 +265,9 @@
 
         .events-header {
             margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
         }
 
         .events-header h1 {
@@ -276,6 +279,9 @@
             color: #380001;
             margin-bottom: 20px;
             letter-spacing: normal;
+            width: 82.5%;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .events-header p {
@@ -334,8 +340,13 @@
             min-height: 50px;
             display: flex;
             align-items: center;
+            justify-content: center;
             width: 82.5%;
             margin: 0 auto;
+            text-align: center;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
         }
 
         .event-image {
